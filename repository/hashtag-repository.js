@@ -1,5 +1,5 @@
-const Tweet = require("./models/tweet");
-class TweetRepository {
+const Hashtag = require("./models/hashtag");
+class HashtagRepository {
   async create(data) {
     try {
       const tweet = await Tweet.create(data);
@@ -23,24 +23,6 @@ class TweetRepository {
         .populate({ path: "comments" })
         .lean();
       return tweetWithComments;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async destroy(id) {
-    const tweet = await Tweet.findByIdRemove(id);
-    return tweet;
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async getAll(offset, limit) {
-    const tweet = await Tweet.find().skip(offset).limit(limit);
-    return tweet;
-    try {
     } catch (error) {
       console.log(error);
     }
