@@ -1,30 +1,39 @@
-const Hashtag = require("./models/hashtag");
+const Hashtag = require("../models/hashtag.js");
 class HashtagRepository {
   async create(data) {
     try {
-      const tweet = await Tweet.create(data);
-      return tweet;
+      const tag = await Hashtag.create(data);
+      return tag;
     } catch (error) {
       console.log(error);
     }
   }
   async get(id) {
-    const tweet = await Tweet.findById(id);
-    return tweet;
+    const tag = await Hashtag.findById(id);
+    return tag;
     try {
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getWithComments(id) {
+  async bulkCreate(data) {
     try {
-      const tweetWithComments = await Tweet.findById(id)
-        .populate({ path: "comments" })
-        .lean();
-      return tweetWithComments;
+      const tags = await Hashtag.insertMany(data);
+      return tags;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async destroy(id) {
+    try {
+      const response = await Hashtag.findByIdAndRemove(id);
+      return response;
     } catch (error) {
       console.log(error);
     }
   }
 }
+
+module.exports = HashtagRepository;

@@ -1,9 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const connect = require("./config/database");
+// const connect = require("./config/database");
 const dotenv = require("dotenv");
+const HashtagRepository = require("./repository/hashtag-repository.js");
+const Tweet = require("./models/tweet.js");
 
-const Tweet = require("./models/tweet");
 dotenv.config();
 const PORT = process.env.PORT || 3001;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -22,10 +23,15 @@ app.listen(PORT, async () => {
   // await connect();
   // console.log("mongodb is connected");
 
-  const tweet = await Tweet.create({
-    content: " LALU",
-    userEmail: "ajhg@gmail.com",
-  });
-
-  console.log(tweet);
+  let repo = new HashtagRepository();
+  await repo.bulkCreate([
+    {
+      title: "trend4",
+      tweets: [],
+    },
+    {
+      title: "music4",
+      tweets: [],
+    },
+  ]);
 });
