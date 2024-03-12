@@ -24,14 +24,7 @@ app.listen(PORT, async () => {
   // console.log("mongodb is connected");
 
   let repo = new HashtagRepository();
-  await repo.bulkCreate([
-    {
-      title: "trend4",
-      tweets: [],
-    },
-    {
-      title: "music4",
-      tweets: [],
-    },
-  ]);
+  const response = await repo.findByName(["music", "trend"]);
+
+  console.log(response);
 });
