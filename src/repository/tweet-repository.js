@@ -1,4 +1,5 @@
-const Tweet = require("../models/tweet");
+import Tweet from "../models/tweet.js";
+
 class TweetRepository {
   async create(data) {
     try {
@@ -8,10 +9,11 @@ class TweetRepository {
       console.log(error);
     }
   }
+
   async get(id) {
-    const tweet = await Tweet.findById(id);
-    return tweet;
     try {
+      const tweet = await Tweet.findById(id);
+      return tweet;
     } catch (error) {
       console.log(error);
     }
@@ -29,22 +31,22 @@ class TweetRepository {
   }
 
   async destroy(id) {
-    const tweet = await Tweet.findByIdRemove(id);
-    return tweet;
     try {
+      const tweet = await Tweet.findByIdAndRemove(id);
+      return tweet;
     } catch (error) {
       console.log(error);
     }
   }
 
   async getAll(offset, limit) {
-    const tweet = await Tweet.find().skip(offset).limit(limit);
-    return tweet;
     try {
+      const tweets = await Tweet.find().skip(offset).limit(limit);
+      return tweets;
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-module.exports = TweetRepository;
+export default TweetRepository;

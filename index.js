@@ -1,17 +1,15 @@
-const express = require("express");
-const mongoose = require("mongoose");
-// const connect = require("./config/database");
-const dotenv = require("dotenv");
-const Tweet = require("./src/models/tweet");
-const {
-  TweetRepository,
-  HashtagRepository,
-} = require("./src/repository/index.js");
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+// import Tweet from "./src/models/tweet.js";
+// import { TweetRepository, HashtagRepository } from "./src/repository/index.js";
+import TweetService from "./src/services/tweet-services.js";
 
-const TweetService = require("./src/services/tweet-services.js");
 dotenv.config();
+
 const PORT = process.env.PORT || 3001;
 const MONGODB_URI = process.env.MONGODB_URI;
+
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
@@ -20,22 +18,14 @@ mongoose
   .catch((error) => {
     console.log(error, " we got server error");
   });
+
 const app = express();
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
-  // await connect();
-  // console.log("mongodb is connected");
-
-  // let repo = new HashtagRepository();
-  // let response = await repo.findByName(["music", "trend"]);
-
-  // console.log(response);
-  // response = response.map((tag) => tag.title);
-  // console.log(response);
 
   const service = new TweetService();
-  const tweet = service.create({
-    content: "this is my first #code  and #fun tweet  #ssong #laluu",
+  const tweet = await service.create({
+    content: "this is  a my first  #BOOK BANK  aur sare #DOST ",
   });
 });
